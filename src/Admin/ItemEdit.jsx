@@ -19,7 +19,7 @@ const ItemEdit = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/Allproducts/${id}`)
+      .get(`http://127.0.0.1:8000/api/admin/productsingleView/${id}/`)
       .then((res) => setProduct(res.data))
       .catch((err) => console.error("Error fetching product:", err));
   }, [id]);
@@ -29,7 +29,7 @@ const ItemEdit = () => {
   };
 
   const handleSave = async () => {
-    await axios.put(`http://localhost:5000/Allproducts/${id}`, product);
+    await axios.patch(`http://127.0.0.1:8000/api/admin/productsEdit/${id}/`, product);
     alert("Product updated successfully!");
     navigate("/admin/products");
   };

@@ -29,18 +29,6 @@ export default function ManageUser() {
   };
 
 
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
-      try {
-        await axios.delete(`http://localhost:5000/users/${id}`);
-        setUsers(users.filter((user) => user.id !== id)); // update UI
-        alert("User deleted successfully!");
-      } catch (error) {
-        console.error("Error deleting user:", error);
-        alert("Failed to delete user. Please try again.");
-      }
-    }
-  };
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-6">Manage Users</h1>
@@ -74,12 +62,7 @@ export default function ManageUser() {
                   <button className="text-blue-500 hover:text-blue-700 mr-4" onClick={()=>EditUser(user.id)}>
                     <Edit size={18} />
                   </button>
-                  <button
-                    onClick={() => handleDelete(user.id)}
-    className="text-red-500 hover:text-red-700"
-            >
-                    <Trash2 size={18} />
-                  </button>
+    
                 </td>
               </tr>
             ))}

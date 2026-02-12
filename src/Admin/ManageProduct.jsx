@@ -17,23 +17,37 @@ export default function ManageProduct() {
     navigate(`/admin/products/edit/${id}`);
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/Allproducts/${id}`);
-      setProducts((prev) => prev.filter((product) => product.id !== id));
-      alert("Product deleted successfully!");
-    } catch (err) {
-      console.error("Failed to delete product:", err);
-      alert("Error deleting product!");
-    }
-  };
 
+
+const handleDelete = async (id) => {
+  try {
+    const response = await axios.patch(
+      `http://127.0.0.1:8000/api/admin/productsDelete/${id}/`
+    );
+
+    setProducts((prevProducts) =>
+      prevProducts.filter((product) => product.is_deleted== true)
+    );
+
+    alert(response.data.message || "Product deleted successfully!");
+  } catch (error) {
+    console.error("Failed to delete product:", error.response?.data || error);
+    alert("Error deleting product!");
+  }
+};
+
+
+console.log('product',products)
   useEffect(() => {
     axios
       .get("http://127.0.0.1:8000/api/admin/productView/")
       .then((res) => {
-        setProducts(res.data);
-      })
+      // const filteredProducts = res.data.filter(
+      //   (product) => product.is_deleted === trufalse
+      // );
+      // setProducts(filteredProducts);
+      setProducts(res.data)
+    })
       .catch((err) => console.error("Failed to fetch products:", err));
   }, []);
  
@@ -106,7 +120,7 @@ export default function ManageProduct() {
                     <button
                       className="text-red-500 hover:text-red-700"
                       onClick={() => handleDelete(product.id)}
-                    >
+>
                       <Trash2 size={18} />
                     </button>
                   </td>
