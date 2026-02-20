@@ -90,7 +90,7 @@ export default function CheckoutPage() {
       };
 
       const { data } = await axios.post(
-        "http://13.126.102.18:8000/api/orders/orders/",
+        "http://monarch-app.duckdns.org/orders/orders/",
         orderData,
         {
           headers: {
@@ -136,7 +136,7 @@ export default function CheckoutPage() {
 
           try {
             await axios.post(
-              "http://13.126.102.18:8000/api/orders/verify-payment/",
+              "http://monarch-app.duckdns.org/orders/verify-payment/",
               {
                 db_order_id: data.db_order_id,
                 razorpay_order_id: response.razorpay_order_id,

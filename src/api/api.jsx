@@ -1,7 +1,7 @@
 // src/api.js
 import axios from "axios";
 
-const API_BASE = "http://13.126.102.18:8000/api";
+const API_BASE = "http://monarch-app.duckdns.org/";
 
 // Generic request helper
 const request = (method, url, data = null, token = null) => {

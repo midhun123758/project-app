@@ -55,7 +55,7 @@ export default function Home() {
 
    useEffect(() => {
       axios 
-      .get("http://13.126.102.18:8000/api/products/")
+      .get("http://monarch-app.duckdns.org/products/")
       .then((res) => {
   
         setItems(res.data)

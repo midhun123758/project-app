@@ -22,7 +22,7 @@ export default function SearchPanel({ onClose }) {
       if (sortOption && sortOption !== "default") params.append("sort", sortOption);
 
       // Replace with your backend API URL
-      const res = await axios.get(`http://13.126.102.18:8000/api/products/filter/?${params.toString()}`);
+      const res = await axios.get(`http://monarch-app.duckdns.org/products/filter/?${params.toString()}`);
 
       // Make sure the response is always an array
       if (Array.isArray(res.data)) {

@@ -19,7 +19,7 @@ export default function ManageProduct() {
   const handleToggleDelete = async (product) => {
     try {
       const response = await axios.patch(
-        `http://13.126.102.18:8000/api/admin/productsDelete/${product.id}/`,
+        `http://monarch-app.duckdns.org/admin/productsDelete/${product.id}/`,
         { is_deleted: !product.is_deleted } // toggle
       );
 
@@ -42,7 +42,7 @@ export default function ManageProduct() {
 
   useEffect(() => {
     axios
-      .get("http://13.126.102.18:8000/api/admin/productView/")
+      .get("http://monarch-app.duckdns.org/admin/productView/")
       .then((res) => {
         setProducts(res.data);
       })
