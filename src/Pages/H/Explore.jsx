@@ -17,7 +17,7 @@ export default function DressCollection() {
   const { addToCart } = useContext(CartContext);
 useEffect(() => {
   axios
-    .get("http://monarch-app.duckdns.org/products/")
+    .get("https://monarch-app.ddns.net/api/products/")
     .then((res) => {
       const filteredDresses = res.data.filter(
         (item) => item.is_deleted === false

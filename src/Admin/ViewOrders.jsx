@@ -13,7 +13,7 @@ export default function ViewOrders() {
   const fetchOrders = async () => {
     try {
       const res = await axios.get(
-        "http://monarch-app.duckdns.org/admin/orders/users/"
+        "https://monarch-app.ddns.net/api/admin/orders/users/"
       );
       setOrders(res.data);
     } catch (err) {
@@ -27,7 +27,7 @@ export default function ViewOrders() {
   const updateStatus = async (orderId, newStatus) => {
     try {
       await axios.patch(
-        `http://monarch-app.duckdns.org/admin/orders/update/${orderId}/`,
+        `https://monarch-app.ddns.net/api/admin/orders/update/${orderId}/`,
         {
           payment_status: newStatus,
         }

@@ -16,7 +16,7 @@ export default function ManageUser() {
 
   const fetchUsers = () => {
     axios
-      .get("http://monarch-app.duckdns.org/admin/usermanage/", {
+      .get("https://monarch-app.ddns.net/api/admin/usermanage/", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

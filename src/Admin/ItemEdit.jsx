@@ -19,7 +19,7 @@ const ItemEdit = () => {
 
   useEffect(() => {
     axios
-      .get(`http://monarch-app.duckdns.org/admin/productsingleView/${id}/`)
+      .get(`https://monarch-app.ddns.net/api/admin/productsingleView/${id}/`)
       .then((res) => setProduct(res.data))
       .catch((err) => console.error("Error fetching product:", err));
   }, [id]);
@@ -29,7 +29,7 @@ const ItemEdit = () => {
   };
 
   const handleSave = async () => {
-    await axios.patch(`http://monarch-app.duckdns.org/admin/productsEdit/${id}/`, product);
+    await axios.patch(`https://monarch-app.ddns.net/api/admin/productsEdit/${id}/`, product);
     alert("Product updated successfully!");
     navigate("/admin/products");
   };

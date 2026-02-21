@@ -36,9 +36,9 @@ const AdminDashboardV2 = () => {
     const fetchDashboard = async () => {
       try {
         const [usersRes, productsRes, ordersRes] = await Promise.all([
-          axios.get("http://monarch-app.duckdns.org/admin/usermanage/"),
-          axios.get("http://monarch-app.duckdns.org/admin/productView/"),
-          axios.get("http://monarch-app.duckdns.org/admin/orders/users/"),
+          axios.get("https://monarch-app.ddns.net/api/admin/usermanage/"),
+          axios.get("https://monarch-app.ddns.net/api/admin/productView/"),
+          axios.get("https://monarch-app.ddns.net/api/admin/orders/users/"),
         ]);
 
         const users = usersRes.data;

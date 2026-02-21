@@ -12,7 +12,7 @@ export default function Pants() {
   window.scrollTo({ top: 0, behavior: "smooth" });
   useEffect(() => {
       axios 
-      .get("http://monarch-app.duckdns.org/products/")
+      .get("https://monarch-app.ddns.net/api/products/")
       .then((res) => {
       const filtered = res.data.filter(
         (d) => Number(d.category) ==2

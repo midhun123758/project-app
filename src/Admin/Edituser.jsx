@@ -18,7 +18,7 @@ export default function EditUser() {
 
   useEffect(() => {
     axios
-      .get(`http://monarch-app.duckdns.org/admin/userView/${id}/`, {
+      .get(`https://monarch-app.ddns.net/api/admin/userView/${id}/`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -36,7 +36,7 @@ export default function EditUser() {
   const handleSave = async () => {
     try {
       await axios.patch(
-        `http://monarch-app.duckdns.org/admin/userEdit/${id}/`,
+        `https://monarch-app.ddns.net/api/admin/userEdit/${id}/`,
         {
           username,
           first_name: firstName,

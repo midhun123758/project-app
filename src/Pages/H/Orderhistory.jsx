@@ -25,7 +25,7 @@ export default function OrderHistory() {
         const token = localStorage.getItem("token");
 
         const response = await axios.get(
-          "http://monarch-app.duckdns.org/orders/order-history/",
+          "https://monarch-app.ddns.net/api/orders/order-history/",
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -28,7 +28,7 @@ export default function Adding() {
     setLoading(true);
     try {
       // Send product to backend
-      await axios.post("http://monarch-app.duckdns.org/admin/productsadd/",
+      await axios.post("https://monarch-app.ddns.net/api/admin/productsadd/",
          {
         
         ...product,

@@ -57,7 +57,7 @@ export default function ViewProduct() {
 
     axios
       .get(
-        `http://monarch-app.duckdns.org/products/details/${product.id}/`,
+        `https://monarch-app.ddns.net/api/products/details/${product.id}/`,
   
       )
       .then((res) => {
