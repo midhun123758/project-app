@@ -1,19 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-// import { CartContext } from '../../context/CartContext';
 import axios from 'axios';
+import Modal from './Modal';
+import { AuthContext } from '../../context/AuthContext';
+
 const quotes = [
  "MONARCH isn't just fashion — it's the art of ruling your style.",
-"Every thread tells a story of elegance and confidence.",
+ "Every thread tells a story of elegance and confidence.",
  "Where timeless design meets the power of individuality.",
  "Dress like royalty, live with purpose — that's the MONARCH way.",
  "Crafted for those who dare to stand above the ordinary.",
 ];
-import Modal from './Modal';
-import { AuthContext } from '../../context/AuthContext';
 
 export default function Home() {
-
   const { user } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
   const [time,setTime]=useState(500);
@@ -27,25 +26,21 @@ export default function Home() {
   const [items, setItems] = useState([]);
   const [hoveredName, setHoveredName] = useState("PANTS");
 
-  const names = [
-    "PANTS",
-    "SHIRTS",
-    "TSHIRTS",
-  ];
+  const names = ["PANTS", "SHIRTS", "TSHIRTS"];
+  const navigate = useNavigate();
+  const [scrollY, setScrollY] = useState(0);
 
+  // Modal timer
   useEffect(() => {
-     const userData = localStorage.getItem("token");
+    const userData = localStorage.getItem("token");
     if (userData) return;
     const timer = setTimeout(() => {
       setShowModal(true); 
-    },time);
-
-   
+    }, time);
     return () => clearTimeout(timer); 
-   
-  
-},[]);
- 
+  }, []);
+
+  // Image slider
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
@@ -53,44 +48,33 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [images.length]);
 
-   useEffect(() => {
+  // Fetch products
+  useEffect(() => {
       axios 
       .get("https://monarch-app.ddns.net/api/products/")
-      .then((res) => {
-  
-        setItems(res.data)
-    })
-     
-     .catch((err) => console.error("Error fetching dresses:", err));
-    
-     
+      .then((res) => setItems(res.data))
+      .catch((err) => console.error("Error fetching dresses:", err));
   }, []);
-  
-  const navigate = useNavigate();
-  const [scrollY, setScrollY] = useState(0);
 
+  // Scroll listener
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-
-  
- 
   return (
     <div className="text-gray-1000">
-      <div >
-        <Modal show={showModal} onClose={() => setShowModal(false)} />
 
-      </div>
+      {/* Modal */}
+      <Modal show={showModal} onClose={() => setShowModal(false)} />
 
-      {/* Hero Section - Made responsive */}
-      <section className="relative w-full h-[100vh] overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative w-full h-[100vh] md:h-[130vh] overflow-hidden">
         <img
           src="/assets/midhun5.jpg"
           alt="Tech Lifestyle Banner"
-          className="object-cover w-full h-[130vh] brightness-85"
+          className="object-cover w-full h-full brightness-85"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent flex flex-col items-center justify-center text-center px-4 space-y-4 md:space-y-6">
           <h1 className="font-[Playfair_Display] font-bold italic uppercase tracking-wider text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white drop-shadow-lg">
@@ -106,7 +90,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Two Column Grid Section - Made responsive */}
+      {/* Two Column Grid Section */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 py-8 md:py-12 px-4 md:px-5 bg-gray-100">
         <div className="relative w-full h-64 sm:h-80 md:h-96 lg:h-[135vh] overflow-hidden group">
           <img 
@@ -141,7 +125,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Section - Made responsive */}
+      {/* About Section */}
       <div className="h-[400vh] bg-black text-white font-serif">
         <div className="sticky top-0 h-screen flex items-center justify-center">
           <img 
@@ -149,7 +133,6 @@ export default function Home() {
             alt="Tech Lifestyle Banner"
             className="w-full h-full object-cover opacity-45"
           />
-          
           <div className="absolute top-16 sm:top-20 md:top-25 left-1/2 transform -translate-x-1/2 z-20">
             <h2 className="text-xl sm:text-2xl md:text-3xl tracking-wide text-white drop-shadow-lg">
               About
@@ -178,21 +161,14 @@ export default function Home() {
         </div>
       </div>
 
-      {/* New Arrivals Section - Horizontal scrolling on mobile */}
+      {/* New Arrivals Section */}
       <div className="bg-white">
-        {/* Mobile View - Horizontal Scroll */}
+        {/* Mobile View */}
         <div className="md:hidden py-6">
-          {/* Section Header */}
           <div className="px-4 mb-6">
-            <h1 className="text-3xl font-bold mb-2 text-gray-900">
-              New Arrivals
-            </h1>
-            <p className="text-sm text-gray-600">
-              Premium quality meets contemporary design
-            </p>
+            <h1 className="text-3xl font-bold mb-2 text-gray-900">New Arrivals</h1>
+            <p className="text-sm text-gray-600">Premium quality meets contemporary design</p>
           </div>
-
-          {/* Horizontal Scroll Container */}
           <div className="overflow-x-auto scrollbar-hide">
             {items.length === 0 ? (
               <div className="flex gap-4 px-4">
@@ -206,11 +182,8 @@ export default function Home() {
               </div>
             ) : (
               <div className="flex gap-4 px-4 pb-2">
-                {items.map((item, index) => (
-                  <div
-                    key={item.id}
-                    className="flex-shrink-0 w-[85vw]"
-                  >
+                {items.map((item) => (
+                  <div key={item.id} className="flex-shrink-0 w-[85vw]">
                     <div className="relative mb-3 overflow-hidden rounded-lg shadow-lg">
                       <img
                         onClick={() => navigate("/product", { state: { product: item } })}
@@ -218,58 +191,34 @@ export default function Home() {
                         alt={item.name}
                         className="w-full h-[75vh] object-cover cursor-pointer"
                       />
-                      <div className="absolute bottom-4 left-4 right-4">
-                    
-                      </div>
-                      {/* Item indicator */}
-                     
                     </div>
                     <div className="text-center px-2">
-                      <h3 className="font-semibold text-gray-900 text-base mb-1">
-                        {item.name}
-                      </h3>
-                      <p className="text-gray-900 font-bold text-lg">
-                        ₹{item.price}
-                      </p>
+                      <h3 className="font-semibold text-gray-900 text-base mb-1">{item.name}</h3>
+                      <p className="text-gray-900 font-bold text-lg">₹{item.price}</p>
                     </div>
                   </div>
                 ))}
               </div>
             )}
           </div>
-          
-          {/* Scroll indicator */}
-        
         </div>
 
-        {/* Desktop View - Side by Side */}
+        {/* Desktop View */}
         <div className="hidden md:flex min-h-screen">
           <div className="relative z-10 bg-white w-full">
             <div className="flex flex-row min-h-screen">
-              {/* Left Side - Fixed Hero Section */}
               <div className="w-1/2 flex-shrink-0">
                 <div className="sticky top-0 h-screen overflow-hidden">
                   <div className="relative h-full">
-                    <img
-                      src={images[0]}
-                      alt="Hero"
-                      className="w-full h-full object-cover"
-                    />
+                    <img src={images[0]} alt="Hero" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-black/20"></div>
-                    
                     <div className="absolute inset-0 flex flex-col justify-center items-start px-12 lg:px-16 text-white">
-                      <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-tight">
-                        New Arrivals
-                      </h1>
-                      <p className="text-lg lg:text-xl mb-8 max-w-md">
-                        Premium quality meets contemporary design in our latest collection
-                      </p>
+                      <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-tight">New Arrivals</h1>
+                      <p className="text-lg lg:text-xl mb-8 max-w-md">Premium quality meets contemporary design in our latest collection</p>
                     </div>
                   </div>
                 </div>
               </div>
-
-              {/* Right Side - Product Grid */}
               <div id="new-arrivals" className="w-1/2 flex-grow overflow-y-auto pt-20">
                 <div className="p-8">
                   {items.length === 0 ? (
@@ -293,20 +242,15 @@ export default function Home() {
                         >
                           <div className="relative mb-4 overflow-hidden rounded-lg">
                             <img
-                             onClick={() => navigate("/product", { state: { product: item } })}
+                              onClick={() => navigate("/product", { state: { product: item } })}
                               src={hoveredItem === item.id ? item.img2 : item.img1}
                               alt={item.name}
                               className="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer"
                             />
-                          
                           </div>
                           <div className="text-center">
-                            <h3 className="font-medium text-gray-900 text-lg mb-1">
-                              {item.name}
-                            </h3>
-                            <p className="text-gray-900 font-semibold text-xl">
-                              ₹{item.price}
-                            </p>
+                            <h3 className="font-medium text-gray-900 text-lg mb-1">{item.name}</h3>
+                            <p className="text-gray-900 font-semibold text-xl">₹{item.price}</p>
                           </div>
                         </div>
                       ))}
@@ -319,7 +263,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Category Section: Names and Hover Images - Made responsive */}
+      {/* Category Section */}
       <section className="flex flex-col-reverse md:flex-row min-h-screen">
         <div className="w-full md:w-1/2 bg-white p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-center">
           <div className="space-y-2 sm:space-y-3 md:space-y-4">
