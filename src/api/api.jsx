@@ -20,7 +20,7 @@ export const auth = {
     request("post", "/users/register/", { username, email, password }),
 
   login: (email, password) =>
-    request("post", "/users/login/", { email, password }),
+    request("post","/users/login/", { email, password }),
 
   logout: (token) =>
     request(

@@ -12,7 +12,7 @@ export default function AuthPage() {
     resetPassword,
     logout,
   } = useContext(AuthContext);
-
+ console.log(user)
   const navigate = useNavigate();
 
   const [isSignup, setIsSignup] = useState(false);
@@ -49,7 +49,9 @@ export default function AuthPage() {
       } else {
         navigate("/");
       }
+      console.log(data)
     }
+    
   };
 
   // ---------------- LOGGED IN ----------------
