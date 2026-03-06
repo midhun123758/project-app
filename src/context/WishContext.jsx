@@ -31,6 +31,7 @@ export const WishlistProvider = ({ children }) => {
 
   // ---------------- TOGGLE ITEM ----------------
   const addToWishlist = async (productId) => {
+    
     if (!token) return navigate("/user");
 
     try {
