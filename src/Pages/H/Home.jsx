@@ -51,7 +51,7 @@ export default function Home() {
   // Fetch products
   useEffect(() => {
       axios 
-      .get("https://monarch-app.ddns.net/api/products/")
+      .get("https://monarch-server.ddns.net/api/products/")
       .then((res) => setItems(res.data))
       .catch((err) => console.error("Error fetching dresses:", err));
   }, []);
